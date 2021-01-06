@@ -3,34 +3,35 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
-import { Task } from "./Task";
+import { User } from "./User";
 
 @ObjectType()
 @Entity()
-export class User extends BaseEntity{
+export class Task extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
   id!: number;
 
   @Field()
-  @Column({ unique: true })
-  username!: string;
+  @Column({ type: "text" })
+  title!: string;
 
   @Field()
-  @Column({ unique: true })
-  email!: string;
-  
-  @Column({ type: "text" })
-  password!: string;
+  @Column()
+  text!: string;
 
-  @OneToMany(()=>Task, task =>task.creator)
-  tasks: Task
-  
+  @Field()
+  @Column()
+  creatorId: number;
+
+  @ManyToOne(() => User, (user) => user.tasks)
+  creator: User;
+
   @Field(() => String)
   @CreateDateColumn()
   createdAt: Date;
