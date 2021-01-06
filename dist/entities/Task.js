@@ -33,6 +33,11 @@ __decorate([
 __decorate([
     type_graphql_1.Field(),
     typeorm_1.Column(),
+    __metadata("design:type", String)
+], Task.prototype, "category", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    typeorm_1.Column(),
     __metadata("design:type", Number)
 ], Task.prototype, "creatorId", void 0);
 __decorate([

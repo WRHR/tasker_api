@@ -12,6 +12,7 @@ import connectRedis from "connect-redis";
 import { MyContext } from "./types";
 import cors from "cors";
 import { User } from "./entities/User";
+import { Task } from "./entities/Task";
 
 const main = async () => {
   const conn = await createConnection({
@@ -20,7 +21,7 @@ const main = async () => {
     username: "w",
     logging: true,
     synchronize: true,
-    entities: [User],
+    entities: [User, Task],
   });
 
   const app = express();

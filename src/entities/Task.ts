@@ -24,6 +24,10 @@ export class Task extends BaseEntity {
   @Field()
   @Column()
   text!: string;
+  
+  @Field()
+  @Column()
+  category!: string;
 
   @Field()
   @Column()
