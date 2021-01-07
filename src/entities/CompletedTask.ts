@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { User } from "./User";
+import { Task } from "./Task";
 
 
 @ObjectType()
@@ -10,8 +11,7 @@ export class CompletedTask{
   id: number
 
   @Field()
-  @Column()
-  completed:string
+  @OneToOne(()=>Task, task => task.id)
 
   @Field()
   @ManyToOne(()=>User, (user) => user.completedTasks)
