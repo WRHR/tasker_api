@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { Task } from "./Task";
+import { CompletedTask } from "./CompletedTask";
 
 @ObjectType()
 @Entity()
@@ -30,6 +31,9 @@ export class User extends BaseEntity{
 
   @OneToMany(()=>Task, task =>task.creator)
   tasks: Task
+  
+  @OneToMany(()=>CompletedTask, completedTask =>completedTask.completedBy)
+  completedTasks: CompletedTask
   
   @Field(() => String)
   @CreateDateColumn()
