@@ -1,4 +1,4 @@
-import { Arg, Ctx, Field, InputType, Mutation, ObjectType } from "type-graphql";
+import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Query } from "type-graphql";
 import { MyContext } from "../types";
 import { Task } from "../entities/Task";
 import {} from "graphql";
@@ -35,6 +35,11 @@ class TaskResponse {
 
 @ObjectType()
 export class TaskResolver {
+  @Query(()=>TaskResponse)
+  allTasks(){
+    return Task.find()
+  }
+
   @Mutation(() => TaskResponse)
   async createTask(
     @Arg("options") options: TaskOptions,
