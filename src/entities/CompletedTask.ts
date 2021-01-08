@@ -1,19 +1,27 @@
-import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { User } from "./User";
 import { Task } from "./Task";
 
-
 @ObjectType()
 @Entity()
-export class CompletedTask{
+export class CompletedTask {
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
   @Field()
-  @OneToOne(()=>Task, task => task.id)
-
+  @OneToOne(() => Task, (task) => task.id)
   @Field()
-  @ManyToOne(()=>User, (user) => user.completedTasks)
-  completedBy:User
+  @ManyToOne(() => User, (user) => user.completedTasks)
+  completedBy: User;
+
+  @Field(() => String)
+  @CreateDateColumn()
+  createdAt: Date;
 }
