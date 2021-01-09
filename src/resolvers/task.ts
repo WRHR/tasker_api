@@ -1,4 +1,12 @@
-import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Query } from "type-graphql";
+import {
+  Arg,
+  Ctx,
+  Field,
+  InputType,
+  Mutation,
+  ObjectType,
+  Query,
+} from "type-graphql";
 import { MyContext } from "../types";
 import { Task } from "../entities/Task";
 import {} from "graphql";
@@ -35,9 +43,16 @@ class TaskResponse {
 
 @ObjectType()
 export class TaskResolver {
-  @Query(()=>TaskResponse)
-  allTasks(){
-    return Task.find()
+  @Query(() => [Task])
+  async allTasks(): Promise<Task[]> {
+    return await Task.find();
+  }
+
+  @Query(() => Task, { nullable: true })
+  async findTask(
+    @Arg("id") id: number, 
+  ): Promise<Task | undefined> {
+    return await Task.findOne(id)
   }
 
   @Mutation(() => TaskResponse)
