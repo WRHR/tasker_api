@@ -91,4 +91,25 @@ export class TaskResolver {
     }
     return { task };
   }
+
+  @Mutation(() => Task, { nullable: true })
+  async updateTask(
+    @Arg("id") id: number,
+    @Arg("title", () => String, { nullable: true }) title: string
+  ): Promise<Task | null> {
+    const task = await Task.findOne(id);
+    if (!task) {
+      return null;
+    }
+    if (typeof title !== "undefined") {
+      Task.update({ id }, { title });
+    }
+    return task;
+  }
+
+  @Mutation(() => Boolean)
+  async deleteTask(@Arg("id") id: number): Promise<boolean> {
+    await Task.delete(id);
+    return true;
+  }
 }
