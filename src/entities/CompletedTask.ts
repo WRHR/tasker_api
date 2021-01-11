@@ -17,11 +17,11 @@ export class CompletedTask {
 
   @Field()
   @OneToOne(() => Task, (task) => task.id)
-  taskId: Task;
+  taskId!: Task;
 
   @Field()
   @ManyToOne(() => User, (user) => user.completedTasks)
-  userId: User;
+  userId!: User;
 
   @Field(() => String)
   @CreateDateColumn()
