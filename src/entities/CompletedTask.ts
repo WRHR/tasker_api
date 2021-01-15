@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   CreateDateColumn,
   Entity,
   ManyToOne,
@@ -11,17 +12,17 @@ import { Task } from "./Task";
 
 @ObjectType()
 @Entity()
-export class CompletedTask {
+export class CompletedTask extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Field()
-  @OneToOne(() => Task, (task) => task.id)
+  @ManyToOne(() => Task, (task) => task.id)
   taskId!: Task;
 
-  @Field()
+  
   @ManyToOne(() => User, (user) => user.completedTasks)
-  userId!: User;
+  completedBy!: User;
 
   @Field(() => String)
   @CreateDateColumn()

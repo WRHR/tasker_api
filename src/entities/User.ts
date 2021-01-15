@@ -33,7 +33,7 @@ export class User extends BaseEntity{
   tasks: Task
   
   @OneToMany(()=>CompletedTask, completedTask =>completedTask.completedBy)
-  completedTasks: CompletedTask
+  completedTasks: CompletedTask[]
   
   @Field(() => String)
   @CreateDateColumn()
