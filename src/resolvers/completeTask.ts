@@ -2,14 +2,12 @@ import {
   Arg,
   Ctx,
   Field,
-  InputType,
+
   Mutation,
   ObjectType,
   Query,
 } from "type-graphql";
 import { MyContext } from "../types";
-import { Task } from "../entities/Task";
-
 import { getConnection } from "typeorm";
 import { CompletedTask } from "../entities/CompletedTask";
 

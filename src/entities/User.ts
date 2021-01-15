@@ -32,7 +32,7 @@ export class User extends BaseEntity{
   @OneToMany(()=>Task, task =>task.creator)
   tasks: Task
   
-  @OneToMany(()=>CompletedTask, completedTask =>completedTask.completedBy)
+  @OneToMany(()=>CompletedTask, completedTask =>completedTask.completedBy, {cascade:true})
   completedTasks: CompletedTask[]
   
   @Field(() => String)
