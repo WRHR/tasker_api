@@ -11,7 +11,7 @@ import { MyContext } from "../types";
 import { Task } from "../entities/Task";
 
 import { getConnection } from "typeorm";
-import { CompletedTask } from "src/entities/CompletedTask";
+import { CompletedTask } from "../entities/CompletedTask";
 
 ObjectType();
 class FieldError {
@@ -34,7 +34,7 @@ class CompletedTaskRes {
 export class CompleteTaskResolver {
   @Query(() => [CompletedTask])
   async myCompletedTasks(@Ctx() { req }: MyContext): Promise<CompletedTask[]> {
-    return await CompletedTask.find({ userId: req.session.id });
+    return await CompletedTask.find({ userId: req.session.userId });
   }
 
   @Mutation(() => CompletedTaskRes)
@@ -50,8 +50,8 @@ export class CompleteTaskResolver {
         .insert()
         .into(CompletedTask)
         .values({
-          taskId: taskNum.toString(),
-          userId: req.session.userId?.toString(),
+          taskId: taskNum,
+          userId: req.session.userId,
         })
         .returning("*")
         .execute();
@@ -66,6 +66,6 @@ export class CompleteTaskResolver {
         ],
       };
     }
-    return { ct };
+    return ct;
   }
 }

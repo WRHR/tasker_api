@@ -2,8 +2,10 @@ import {
   BaseEntity,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToOne,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
@@ -17,11 +19,19 @@ export class CompletedTask extends BaseEntity {
   id: number;
 
   @Field()
-  @ManyToOne(() => Task, (task) => task.id)
-  taskId!: Task;
-
+  @PrimaryColumn()
+  userId: number;
   
+  @Field()
+  @PrimaryColumn()
+  taskId: number;
+
+  @ManyToOne(() => Task, (task) => task.id)
+  @JoinColumn({name:'taskId'})
+  task: Task;
+
   @ManyToOne(() => User, (user) => user.completedTasks)
+  @JoinColumn({ name: "userId" })
   completedBy!: User;
 
   @Field(() => String)
